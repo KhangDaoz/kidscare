@@ -39,6 +39,7 @@
   --color-bg-alt: #F0F4FF;
   --color-text: #2D3748;
   --color-text-light: #718096;
+  --kidscare-vh: 100vh;
 }
 
 body {
@@ -46,6 +47,25 @@ body {
   font-family: var(--font-body);
   background-color: var(--color-background);
   color: var(--color-on-surface);
+}
+
+.kidscare-viewport {
+  width: 100vw;
+  height: var(--kidscare-vh);
+  min-height: 100vh;
+}
+
+@supports (height: 100svh) {
+  .kidscare-viewport {
+    min-height: 100svh;
+  }
+}
+
+@supports (height: 100dvh) {
+  .kidscare-viewport {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
 }
 
 h1, h2, h3, h4 {

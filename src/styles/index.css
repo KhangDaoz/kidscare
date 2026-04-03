@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-on-surface-variant: #4f5d67;
+  --color-outline: #6a7982;
+  --color-inverse-on-surface: #909fa9;
+  --color-on-primary-fixed: #000000;
+  --color-primary-fixed-dim: #5291ff;
+  --color-on-surface: #233039;
+  --color-surface-tint: #0058bc;
+  --color-background: #eff8ff;
+  --color-error: #b31b25;
+  --color-on-tertiary-fixed-variant: #7a0003;
+  --color-secondary-fixed: #86f898;
+  --color-secondary-dim: #005d24;
+  --color-surface-container: #d8ebf8;
+  --color-on-tertiary: #ffefed;
+  --color-tertiary-fixed: #ff9384;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-variant: #cae0ef;
+  --color-on-error: #ffefee;
+  --color-primary-container: #6d9fff;
+  --color-on-tertiary-fixed: #3a0001;
+  --color-secondary: #006a2b;
+  --color-inverse-primary: #4d8efe;
+  --color-on-primary-fixed-variant: #002a61;
+
+  --font-label: "Nunito", "Plus Jakarta Sans", sans-serif;
+  --font-headline: "Nunito", "Plus Jakarta Sans", sans-serif;
+  --font-body: "Nunito", "Inter", sans-serif;
+}
+
+:root {
+  --color-primary: #80BEED;
+  --color-secondary: #FFCFE6;
+  --color-tertiary: #FFE66D;
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F0F4FF;
+  --color-text: #2D3748;
+  --color-text-light: #718096;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-headline);
+  font-weight: 700;
+}
+
+.max-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- Thêm các Animation từ bản PoC rèn luyện cho trẻ --- */
+
+.puffy-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes rotate-border {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.bello-ring {
+  animation: rotate-border 4s linear infinite;
+}
+
+/* Material Icons setting */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

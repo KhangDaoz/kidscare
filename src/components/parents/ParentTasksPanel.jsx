@@ -12,9 +12,9 @@ export default function ParentTasksPanel({
   onOpenQr,
 }) {
   return (
-    <section className="parents-card-shadow flex h-[600px] flex-col rounded-[2.5rem] border border-slate-100 bg-white p-7">
+    <section className="parents-card-shadow flex min-h-[420px] flex-col rounded-[2rem] border border-slate-100 bg-white p-4 sm:rounded-[2.5rem] sm:p-7 lg:h-[600px]">
       <div className="mb-6 flex items-start justify-between">
-        <h3 className="text-lg font-black uppercase tracking-tight text-slate-800">Nhiệm vụ cho con</h3>
+        <h3 className="text-base font-black uppercase tracking-tight text-slate-800 sm:text-lg">Nhiệm vụ cho con</h3>
         <Sparkles className="h-5 w-5 text-sky-500" />
       </div>
 
@@ -45,7 +45,7 @@ export default function ParentTasksPanel({
           onChange={(event) => onManualTaskChange(event.target.value)}
           type="text"
           placeholder="Thêm nhiệm vụ riêng cho con..."
-          className="w-full rounded-2xl border border-slate-100 bg-slate-50 py-4 pr-12 pl-5 text-[10px] font-bold outline-none transition-all focus:ring-2 focus:ring-sky-500"
+          className="w-full rounded-2xl border border-slate-100 bg-slate-50 py-3 pr-12 pl-4 text-xs font-bold outline-none transition-all focus:ring-2 focus:ring-sky-500 sm:py-4 sm:pl-5"
         />
         <button
           type="button"

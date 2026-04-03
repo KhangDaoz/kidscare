@@ -84,7 +84,7 @@ export default function Parents() {
 
     return (
         <div className="min-h-screen bg-slate-100 pb-12">
-            <main className="mx-auto max-w-[1400px] space-y-6 px-6 pt-6">
+            <main className="mx-auto max-w-[1400px] space-y-6 px-3 pt-3 sm:px-4 sm:pt-4 md:px-6 md:pt-6">
                 <ParentHeader activeChild={activeChild} onSelectChild={setActiveChild} />
 
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">

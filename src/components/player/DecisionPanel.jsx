@@ -43,23 +43,23 @@ const DecisionPanel = ({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-40 p-4">
-      <div className="bg-white/95 backdrop-blur-md rounded-t-3xl w-full max-w-4xl shadow-2xl border-t-4 border-blue-300 p-8 max-h-[60vh] overflow-y-auto">
+    <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/50 p-3 backdrop-blur-sm sm:p-4">
+      <div className="max-h-[70vh] w-full max-w-4xl overflow-y-auto rounded-t-3xl border-t-4 border-blue-300 bg-white/95 p-5 shadow-2xl backdrop-blur-md sm:max-h-[60vh] sm:p-8">
         
         {/* Câu hỏi */}
-        <h2 className="font-headline font-bold text-3xl text-blue-700 mb-8 text-center">
+        <h2 className="mb-6 text-center font-headline text-2xl font-bold text-blue-700 sm:mb-8 sm:text-3xl">
           {question}
         </h2>
 
         {/* Các lựa chọn */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="mb-6 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
           {choices.map((choice) => (
             <button
               key={choice.id}
               onClick={() => onChoiceSelect(choice)}
               disabled={isLoading}
               className={`
-                w-full p-6 rounded-2xl font-headline font-bold text-base sm:text-lg
+                w-full rounded-2xl p-4 font-headline text-sm font-bold sm:p-6 sm:text-lg
                 transition-all duration-200 transform
                 border-4
                 ${isLoading 

@@ -17,8 +17,8 @@ const childrenProfiles = [
 
 export default function ParentHeader({ activeChild, onSelectChild }) {
   return (
-    <header className="flex flex-wrap items-center justify-between gap-4">
-      <div className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-2 shadow-sm">
+    <header className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
+      <div className="flex items-center gap-3 overflow-x-auto rounded-2xl border border-slate-100 bg-white p-2 shadow-sm">
         {childrenProfiles.map((child) => {
           const isActive = child.id === activeChild;
 
@@ -27,7 +27,7 @@ export default function ParentHeader({ activeChild, onSelectChild }) {
               key={child.id}
               type="button"
               onClick={() => onSelectChild(child.id)}
-              className={`flex items-center gap-3 rounded-xl px-4 py-2 transition-all ${
+              className={`flex min-w-fit items-center gap-3 rounded-xl px-3 py-2 transition-all sm:px-4 ${
                 isActive
                   ? 'bg-sky-500 text-white shadow-lg shadow-sky-100'
                   : 'text-slate-500 opacity-60 grayscale hover:bg-slate-50 hover:opacity-100 hover:grayscale-0'
@@ -57,16 +57,16 @@ export default function ParentHeader({ activeChild, onSelectChild }) {
         </button>
       </div>
 
-      <div className="flex gap-2">
+      <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto">
         <button
           type="button"
-          className="rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-600 transition-all hover:bg-slate-50"
+          className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-600 transition-all hover:bg-slate-50 sm:px-5"
         >
           Xuất báo cáo
         </button>
         <button
           type="button"
-          className="rounded-xl bg-slate-900 px-5 py-2.5 text-xs font-bold text-white shadow-xl"
+          className="rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-bold text-white shadow-xl sm:px-5"
         >
           Cài đặt
         </button>

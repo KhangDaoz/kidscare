@@ -5,7 +5,7 @@ import MapMascot from './MapMascot';
 
 const MapCanvas = ({ onLessonSelect }) => {
   return (
-    <main className="relative min-h-[2000px] w-full pt-32 pb-48 flex flex-col items-center">
+    <main className="relative flex min-h-[1500px] w-full flex-col items-center overflow-hidden px-2 pb-40 pt-24 sm:min-h-[1800px] sm:px-4 sm:pt-28 md:min-h-[2000px] md:pb-48 md:pt-32">
       
       {/* 🎭 LỚP NỀN: Mây, Cây và Sao trang trí */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -56,7 +56,7 @@ const MapCanvas = ({ onLessonSelect }) => {
       </svg>
 
       {/* 🏝 LỚP ĐẢO (Hiển thị các bài học dọc theo map) */}
-      <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col gap-[180px]">
+      <div className="relative z-10 flex w-full max-w-4xl flex-col gap-24 px-3 sm:gap-32 sm:px-4 md:gap-[180px] md:px-6">
         {lessonsData.map((lesson) => (
           <React.Fragment key={lesson.id}>
             {/* Component Cục Đảo Đơn Lẻ */}

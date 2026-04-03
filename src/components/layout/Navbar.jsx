@@ -1,7 +1,13 @@
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const { pathname } = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   const navLinks = [
     { name: 'Trang chủ', path: '/' },
@@ -10,42 +16,69 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 px-6 py-4 transition-all">
-      <div className="flex justify-between items-center max-w-[1440px] mx-auto rounded-full mt-2 bg-white/70 backdrop-blur-xl shadow-xl shadow-sky-900/5 px-8 py-4 border border-white/20">
-        
-        {/* Logo Section */}
-        <Link to="/" className="text-2xl font-black text-sky-700 flex items-center gap-3 hover:opacity-80 transition-all font-headline">
-          <img
-            src="/images/icon.png"
-            alt="Logo Hành Trang Nhí"
-            className="w-10 h-10 object-contain shrink-0"
-          />
-          <span className="leading-none pt-0.5">Hành Trang Nhí</span>
-        </Link>
+    <nav className="fixed top-0 left-0 z-50 w-full px-3 py-3 transition-all sm:px-5 sm:py-4">
+      <div className="mx-auto mt-1 max-w-[1440px] rounded-3xl border border-white/20 bg-white/70 px-4 py-3 shadow-xl shadow-sky-900/5 backdrop-blur-xl sm:mt-2 sm:px-6 lg:rounded-full lg:px-8 lg:py-4">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 font-headline text-lg font-black text-sky-700 transition-all hover:opacity-80 sm:gap-3 sm:text-2xl">
+            <img
+              src="/images/icon.png"
+              alt="Logo Hành Trang Nhí"
+              className="h-9 w-9 shrink-0 object-contain sm:h-10 sm:w-10"
+            />
+            <span className="hidden leading-none pt-0.5 sm:block">Hành Trang Nhí</span>
+          </Link>
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`px-4 py-1.5 rounded-full font-bold transition-all duration-300 ${
-                pathname === link.path 
-                ? 'bg-sky-50 text-sky-700 border-b-4 border-sky-400' 
-                : 'text-slate-600 hover:bg-sky-50 hover:scale-105'
-              }`}
+          <div className="hidden items-center gap-6 md:flex">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`px-4 py-1.5 rounded-full font-bold transition-all duration-300 ${
+                  pathname === link.path
+                    ? 'bg-sky-50 text-sky-700 border-b-4 border-sky-400'
+                    : 'text-slate-600 hover:bg-sky-50 hover:scale-105'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              className="rounded-full p-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-sky-600 md:hidden"
+              aria-label={isMobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
+              aria-expanded={isMobileMenuOpen}
             >
-              {link.name}
-            </Link>
-          ))}
+              <span className="material-symbols-outlined">
+                {isMobileMenuOpen ? 'close' : 'menu'}
+              </span>
+            </button>
+            <button className="material-symbols-outlined rounded-full p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-sky-600">
+              account_circle
+            </button>
+          </div>
         </div>
 
-        {/* CTAs */}
-        <div className="flex items-center gap-4">
-          <button className="material-symbols-outlined text-slate-500 hover:text-sky-600 transition-colors p-2 rounded-full hover:bg-slate-100">
-            account_circle
-          </button>
-        </div>
+        {isMobileMenuOpen && (
+          <div className="mt-3 rounded-2xl border border-white/40 bg-white/90 p-2 shadow-lg backdrop-blur-xl md:hidden">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`block rounded-xl px-4 py-3 text-sm font-bold transition-all ${
+                  pathname === link.path
+                    ? 'bg-sky-100 text-sky-700'
+                    : 'text-slate-600 hover:bg-sky-50'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );

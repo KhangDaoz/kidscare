@@ -16,8 +16,8 @@ function App() {
       {/* Chỉ hiện Navbar chung nếu KHÔNG phải trang trẻ em */}
       {!useCustomPageChrome && <Navbar />}
       
-      {/* Xóa paddingTop 120px nếu đang ở trang trẻ em để tràn viền */}
-      <main style={{ paddingTop: useCustomPageChrome ? '0px' : '120px' }}>
+      {/* Dành khoảng trống theo từng breakpoint để không che nội dung trên mobile */}
+      <main className={useCustomPageChrome ? '' : 'pt-24 sm:pt-28 md:pt-32'}>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/children" element={<Children/>} />

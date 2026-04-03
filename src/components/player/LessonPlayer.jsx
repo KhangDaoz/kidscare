@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { lessonsContent } from '../../constants/lessonContent';
 import VideoPlayer from './VideoPlayer';
 import DecisionPanel from './DecisionPanel';
@@ -14,32 +14,6 @@ const LessonPlayer = ({ lessonId, onBackToMap }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [answerResults, setAnswerResults] = useState([]);
   const [questionStartTime, setQuestionStartTime] = useState(null);
-
-  useEffect(() => {
-    const updateViewportHeight = () => {
-      const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
-      document.documentElement.style.setProperty('--kidscare-vh', `${Math.round(viewportHeight)}px`);
-    };
-
-    const viewport = window.visualViewport;
-    updateViewportHeight();
-
-    window.addEventListener('resize', updateViewportHeight);
-    window.addEventListener('orientationchange', updateViewportHeight);
-    if (viewport) {
-      viewport.addEventListener('resize', updateViewportHeight);
-      viewport.addEventListener('scroll', updateViewportHeight);
-    }
-
-    return () => {
-      window.removeEventListener('resize', updateViewportHeight);
-      window.removeEventListener('orientationchange', updateViewportHeight);
-      if (viewport) {
-        viewport.removeEventListener('resize', updateViewportHeight);
-        viewport.removeEventListener('scroll', updateViewportHeight);
-      }
-    };
-  }, []);
 
   const currentScene = lesson?.scenes?.[currentSceneId];
 
@@ -116,7 +90,7 @@ const LessonPlayer = ({ lessonId, onBackToMap }) => {
   };
 
   return (
-    <div className="fixed inset-0 kidscare-viewport z-50 overflow-hidden">
+    <div className="fixed inset-0 z-50 overflow-hidden">
       {/* Video Background Full Screen - Chỉ render nếu có videoUrl */}
       {currentScene?.videoUrl && (
         <VideoPlayer 

@@ -26,15 +26,15 @@ const VideoPlayer = ({ videoUrl, onVideoEnded }) => {
   }, [videoUrl]);
 
   return (
-    <div className="absolute inset-0 kidscare-viewport bg-black z-10 overflow-hidden">
+    <div className="fixed inset-0 bg-black z-10">
       <video
         ref={videoRef}
-        className="w-full h-full object-contain object-center"
+        className="w-full h-full object-cover"
         autoPlay
         playsinline
       />
       {/* Gradient overlay mềm để các text phía trên dễ đọc */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none z-10"></div>
+      <div className="fixed inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none z-10"></div>
     </div>
   );
 };

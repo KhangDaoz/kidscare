@@ -39,7 +39,6 @@
   --color-bg-alt: #F0F4FF;
   --color-text: #2D3748;
   --color-text-light: #718096;
-  --kidscare-vh: 100vh;
 }
 
 body {
@@ -47,25 +46,6 @@ body {
   font-family: var(--font-body);
   background-color: var(--color-background);
   color: var(--color-on-surface);
-}
-
-.kidscare-viewport {
-  width: 100vw;
-  height: var(--kidscare-vh);
-  min-height: 100vh;
-}
-
-@supports (height: 100svh) {
-  .kidscare-viewport {
-    min-height: 100svh;
-  }
-}
-
-@supports (height: 100dvh) {
-  .kidscare-viewport {
-    height: 100dvh;
-    min-height: 100dvh;
-  }
 }
 
 h1, h2, h3, h4 {
@@ -105,4 +85,51 @@ h1, h2, h3, h4 {
 /* Material Icons setting */
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.parents-card-shadow {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.parents-ai-gradient {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+}
+
+.parents-tab-active {
+  background-color: #ffffff;
+  color: #0ea5e9;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.parents-custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #bae6fd #f1f5f9;
+}
+
+.parents-custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.parents-custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 99px;
+}
+
+.parents-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #bae6fd;
+  border-radius: 99px;
+}
+
+@keyframes parents-scan {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: 100%;
+  }
+}
+
+.parents-scan-line {
+  animation: parents-scan 3s linear infinite;
 }

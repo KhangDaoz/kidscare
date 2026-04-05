@@ -1,153 +1,88 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { createGuidanceSpeech, revokeSpeechAudioUrl } from '../../services/ttsService';
-
-const AI_GUIDE_GIF_URL = '/images/ai-speaking.gif';
-const AI_GUIDE_FALLBACK_IMAGE = '/images/avatar.png';
-const AUTO_CLOSE_AFTER_END_MS = 250;
-const AUTO_CLOSE_ON_FAIL_MS = 1300;
-
-const estimateSpeechDuration = (text) => {
-  const wordCount = String(text || '').trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(3500, Math.min(15000, wordCount * 340));
-};
+import React, { useEffect, useState } from 'react';
 
 const MessagePanel = ({ message, feedback, onClose }) => {
+  const API_URL = "https://api.fpt.ai/hmi/tts/v5";
   const [audioUrl, setAudioUrl] = useState('');
-  const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
-  const [visualSrc, setVisualSrc] = useState(AI_GUIDE_GIF_URL);
-  const [isFallbackVisual, setIsFallbackVisual] = useState(false);
-  const audioRef = useRef(null);
-  const closeTimeoutRef = useRef(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const clearCloseTimeout = useCallback(() => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-  }, []);
-
-  const closePanel = useCallback(
-    (delay = 0) => {
-      clearCloseTimeout();
-      closeTimeoutRef.current = setTimeout(() => {
-        if (typeof onClose === 'function') {
-          onClose();
-        }
-      }, delay);
-    },
-    [clearCloseTimeout, onClose]
-  );
-
-  const handleVisualError = useCallback(() => {
-    if (isFallbackVisual) {
-      return;
-    }
-
-    setVisualSrc(AI_GUIDE_FALLBACK_IMAGE);
-    setIsFallbackVisual(true);
-  }, [isFallbackVisual]);
-
-  useEffect(() => {
-    let canceled = false;
-    const textToSpeak = [message, feedback].filter(Boolean).join('\n\n').trim();
-    const fallbackAutoCloseMs = estimateSpeechDuration(textToSpeak) + 1800;
-
-    setVisualSrc(AI_GUIDE_GIF_URL);
-    setIsFallbackVisual(false);
-
-    const generateAudio = async () => {
-      if (!textToSpeak) {
-        closePanel(AUTO_CLOSE_ON_FAIL_MS);
-        return;
-      }
-
-      setIsGeneratingAudio(true);
-      clearCloseTimeout();
-
+  useEffect(()=> {
+    const fetchData = async (text) => {
       try {
-        const nextAudioUrl = await createGuidanceSpeech(textToSpeak);
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            "api-key": "dWKgd4vP1Mh01Q0QG69voaf1hdEQa552",
+            "voice": "banmai",
+            "speed": "",
+            "Content-Type": "text/plain; charset=utf-8"
+          },
+          body: text
+        });
 
-        if (canceled) {
-          revokeSpeechAudioUrl(nextAudioUrl);
-          return;
+        if (!response.ok) {
+          throw new Error(`API trả về lỗi ${response.status}`);
         }
 
-        setAudioUrl(nextAudioUrl);
-        closePanel(fallbackAutoCloseMs);
+        const data = await response.json();
+        console.log(data);
+
+        const nextUrl = Array.isArray(data)
+          ? data[0]?.async ?? data[0]?.url
+          : typeof data === 'object' && data !== null
+            ? ('async' in data ? data.async : undefined) ?? ('url' in data ? data.url : undefined)
+            : typeof data === 'string'
+              ? data
+              : '';
+
+        if (typeof nextUrl === 'string' && nextUrl.length > 0) {
+          setAudioUrl(nextUrl);
+          setErrorMessage('');
+        } else {
+          setErrorMessage('Không nhận được link audio hợp lệ từ API.');
+        }
       } catch (error) {
-        console.error('TTS guidance error:', error);
-        closePanel(AUTO_CLOSE_ON_FAIL_MS);
-      } finally {
-        if (!canceled) {
-          setIsGeneratingAudio(false);
-        }
+        setErrorMessage(error instanceof Error ? error.message : 'Không thể tạo audio.');
       }
     };
 
-    generateAudio();
-
-    return () => {
-      canceled = true;
-    };
-  }, [clearCloseTimeout, closePanel, feedback, message]);
-
-  useEffect(() => {
-    if (!audioUrl || !audioRef.current) {
-      return;
-    }
-
-    audioRef.current.play().catch(() => {
-      // Trình duyệt có thể chặn autoplay nếu chưa có tương tác người dùng.
-      closePanel(AUTO_CLOSE_ON_FAIL_MS);
-    });
-  }, [audioUrl, closePanel]);
-
-  useEffect(() => {
-    return () => {
-      revokeSpeechAudioUrl(audioUrl);
-    };
-  }, [audioUrl]);
-
-  useEffect(() => {
-    return () => {
-      clearCloseTimeout();
-    };
-  }, [clearCloseTimeout]);
+    fetchData("Xin chào");
+  }, [])
 
   return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/55 p-3 backdrop-blur-sm sm:p-4">
-      <div className="relative w-full max-w-sm rounded-3xl border-4 border-blue-200 bg-white/95 p-4 text-center shadow-2xl sm:max-w-md sm:p-5">
-        <div className="relative mx-auto aspect-square w-full max-w-xs overflow-hidden rounded-3xl border-4 border-white shadow-xl sm:max-w-sm">
-          <img
-            src={visualSrc}
-            alt="AI đang nói chuyện với bé"
-            className={`h-full w-full object-cover ${isGeneratingAudio ? 'ai-speaking-focus' : ''}`}
-            onError={handleVisualError}
-          />
+    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 p-3 backdrop-blur-sm sm:p-4">
+      <div className="w-full max-w-2xl rounded-3xl border-4 border-green-300 bg-white/95 p-5 text-center shadow-2xl backdrop-blur-md sm:p-8">
+        
+        {/* Thông báo chính */}
+        <p className="font-headline font-bold text-2xl sm:text-3xl text-blue-700 mb-6 whitespace-pre-line leading-relaxed">
+          {message}
+        </p>
 
-          {isFallbackVisual ? (
-            <>
-              <span className="ai-speaking-mouth" aria-hidden="true" />
-              <span className="ai-speaking-wave ai-speaking-wave-1" aria-hidden="true" />
-              <span className="ai-speaking-wave ai-speaking-wave-2" aria-hidden="true" />
-              <span className="ai-speaking-wave ai-speaking-wave-3" aria-hidden="true" />
-            </>
-          ) : null}
-        </div>
+        {/* Feedback bổ sung */}
+        {feedback && (
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mb-6">
+            <p className="font-label text-sm sm:text-base text-blue-800">
+              💡 {feedback}
+            </p>
+          </div>
+        )}
 
-        <p className="sr-only whitespace-pre-line">{message}</p>
-        {feedback ? <p className="sr-only whitespace-pre-line">{feedback}</p> : null}
+        {/* Nút tiếp tục */}
+        <button
+          onClick={onClose}
+          className="rounded-full border-2 border-white bg-gradient-to-r from-green-400 to-green-500 px-6 py-3 text-base font-bold text-white shadow-lg transition-transform hover:scale-105 sm:border-3 sm:px-8 sm:text-lg"
+        >
+          ✓ Tiếp tục
+        </button>
 
+        {/* {errorMessage ? <p>{errorMessage}</p> : null}
         {audioUrl ? (
-          <audio
-            ref={audioRef}
-            autoPlay
-            src={audioUrl}
-            onEnded={() => closePanel(AUTO_CLOSE_AFTER_END_MS)}
-            onError={() => closePanel(AUTO_CLOSE_ON_FAIL_MS)}
-            className="hidden"
-          />
-        ) : null}
+          <div>
+            <p>
+              Link audio: <a href={audioUrl} target="_blank" rel="noreferrer">{audioUrl}</a>
+            </p>
+            <audio controls src={audioUrl} />
+          </div>
+        ) : null} */}
       </div>
     </div>
   );

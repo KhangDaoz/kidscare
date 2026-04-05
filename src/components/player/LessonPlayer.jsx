@@ -105,10 +105,10 @@ const LessonPlayer = ({ lessonId, onBackToMap }) => {
       {/* Nút đóng */}
       <button
         onClick={handleBackToMap}
-        className="fixed right-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border-2 border-red-200 bg-white/90 text-red-500 shadow-lg transition-colors hover:bg-red-100 sm:right-6 sm:top-6 sm:h-12 sm:w-12 sm:border-3"
+        className="fixed top-6 right-6 z-50 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-red-100 rounded-full text-red-500 transition-colors shadow-lg border-3 border-red-200"
         title="Đóng bài học"
       >
-        <span className="material-symbols-outlined text-xl sm:text-2xl">close</span>
+        <span className="material-symbols-outlined text-2xl">close</span>
       </button>
 
       {/* Decision Panel (Overlay trên video) */}

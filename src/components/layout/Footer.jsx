@@ -2,19 +2,19 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-16 border-t border-slate-100 bg-slate-50 px-4 py-12 sm:px-6 md:mt-20 md:px-8 md:py-16">
-      <div className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-between gap-8 md:flex-row">
+    <footer className="bg-slate-50 border-t border-slate-100 py-16 px-8 mt-20">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-8 w-full max-w-screen-2xl mx-auto">
         
         {/* Brand & Copyright */}
         <div className="space-y-4 text-center md:text-left">
           <div className="text-lg font-bold text-slate-400">Hành Trang Nhí</div>
-          <p className="max-w-xs text-sm leading-relaxed text-slate-500 sm:max-w-none">
+          <p className="text-slate-500 text-sm leading-relaxed whitespace-nowrap">
             © {currentYear} Hành Trang Nhí. Chắp cánh ước mơ trẻ thơ.
           </p>
         </div>
 
         {/* Navigation Links */}
-        <div className="flex flex-wrap justify-center gap-4 font-headline text-[10px] font-bold uppercase tracking-[0.2em] sm:gap-8">
+        <div className="flex flex-wrap justify-center gap-8 font-headline text-[10px] uppercase tracking-[0.2em] font-bold">
           {['Về chúng tôi', 'Điều khoản', 'Liên hệ', 'Bảo mật'].map((item) => (
             <a 
               key={item}

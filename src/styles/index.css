@@ -46,25 +46,6 @@ body {
   font-family: var(--font-body);
   background-color: var(--color-background);
   color: var(--color-on-surface);
-  overflow-x: hidden;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-#root {
-  min-height: 100dvh;
-  overflow-x: clip;
-}
-
-img,
-video,
-svg,
-canvas {
-  max-width: 100%;
 }
 
 h1, h2, h3, h4 {

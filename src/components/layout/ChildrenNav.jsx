@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 
 const ChildrenNav = () => {
   return (
-    <nav className="fixed top-0 left-0 z-50 px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6">
+    <nav className="fixed top-0 left-0 z-50 px-8 py-6">
       {/* Logo Section */}
-      <Link to="/" className="flex items-center gap-2 font-headline text-lg font-black text-sky-700 transition-all hover:opacity-80 sm:gap-3 sm:text-xl md:text-2xl">
+      <Link to="/" className="text-2xl font-black text-sky-700 flex items-center gap-3 hover:opacity-80 transition-all font-headline">
           <img
             src="/images/icon.png"
             alt="Logo Hành Trang Nhí"
-            className="h-8 w-8 shrink-0 object-contain sm:h-9 sm:w-9 md:h-10 md:w-10"
+            className="w-10 h-10 object-contain shrink-0"
           />
-          <span className="hidden leading-none pt-0.5 sm:block">Hành Trang Nhí</span>
+          <span className="leading-none pt-0.5">Hành Trang Nhí</span>
         </Link>
     </nav>
   );

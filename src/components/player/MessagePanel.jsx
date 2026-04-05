@@ -49,8 +49,8 @@ const MessagePanel = ({ message, feedback, onClose }) => {
   }, [])
 
   return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 p-3 backdrop-blur-sm sm:p-4">
-      <div className="w-full max-w-2xl rounded-3xl border-4 border-green-300 bg-white/95 p-5 text-center shadow-2xl backdrop-blur-md sm:p-8">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-40 p-4">
+      <div className="bg-white/95 backdrop-blur-md rounded-3xl p-8 max-w-2xl w-full shadow-2xl border-4 border-green-300 text-center">
         
         {/* Thông báo chính */}
         <p className="font-headline font-bold text-2xl sm:text-3xl text-blue-700 mb-6 whitespace-pre-line leading-relaxed">
@@ -69,7 +69,7 @@ const MessagePanel = ({ message, feedback, onClose }) => {
         {/* Nút tiếp tục */}
         <button
           onClick={onClose}
-          className="rounded-full border-2 border-white bg-gradient-to-r from-green-400 to-green-500 px-6 py-3 text-base font-bold text-white shadow-lg transition-transform hover:scale-105 sm:border-3 sm:px-8 sm:text-lg"
+          className="bg-gradient-to-r from-green-400 to-green-500 text-white font-headline font-bold py-3 px-8 rounded-full hover:scale-110 transition-transform shadow-lg border-3 border-white text-lg"
         >
           ✓ Tiếp tục
         </button>

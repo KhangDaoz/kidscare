@@ -9,6 +9,9 @@ const SUGGESTED_QUESTIONS = [
   "Chơi với bạn thế nào cho đúng? 🤝"
 ];
 
+// Path to the AI speaking animation
+const AI_AVATAR_PATH = "/images/ai-speaking.gif";
+
 export default function GeminiChatbot({ isOpen, onClose }) {
   const [messages, setMessages] = useState([
     { 
@@ -32,7 +35,7 @@ export default function GeminiChatbot({ isOpen, onClose }) {
     setIsLoading(true);
     
     // Simulate thinking time
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     const mockResponses = [
       `Chà, câu hỏi về **"${userText}"** rất thú vị đấy! Tớ nghĩ là chúng mình nên cùng nhau khám phá thêm. Cậu thấy sao?`,
@@ -82,16 +85,16 @@ export default function GeminiChatbot({ isOpen, onClose }) {
 
           <div className="flex items-center gap-4 relative z-10">
             <div className="relative">
-              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-3xl shadow-xl transform -rotate-3 hover:rotate-0 transition-transform duration-300 cursor-default">
-                🤖
+              <div className="w-16 h-16 bg-white rounded-2xl p-1 shadow-xl transform -rotate-3 hover:rotate-0 transition-all duration-300">
+                <img src={AI_AVATAR_PATH} alt="AI Avatar" className="w-full h-full object-cover rounded-xl" />
               </div>
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-lime-400 border-2 border-white rounded-full"></div>
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-lime-400 border-[3px] border-white rounded-full"></div>
             </div>
             <div>
               <h1 className="text-white text-2xl font-[900] tracking-tight drop-shadow-sm">Hành Trang Nhí AI</h1>
               <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-lime-300 rounded-full animate-pulse"></span>
-                <p className="text-sky-50 text-[10px] font-black uppercase tracking-[0.2em]">Cùng cậu khôn lớn</p>
+                <span className="w-2 h-2 bg-lime-300 rounded-full animate-pulse"></span>
+                <p className="text-sky-50 text-[10px] font-black uppercase tracking-[0.2em]">Đang lắng nghe cậu...</p>
               </div>
             </div>
           </div>
@@ -111,15 +114,15 @@ export default function GeminiChatbot({ isOpen, onClose }) {
           {messages.map((msg, idx) => (
             <div 
               key={idx} 
-              className={`flex items-end gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-4 duration-500`}
+              className={`flex items-end gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-4 duration-500`}
             >
               {msg.role === 'model' && (
-                <div className="w-8 h-8 rounded-lg bg-sky-100 flex items-center justify-center text-lg shadow-sm border border-sky-200 mb-2 flex-shrink-0">
-                  🤖
+                <div className="w-10 h-10 rounded-xl bg-white shadow-md border-2 border-slate-100 flex-shrink-0 overflow-hidden mb-1">
+                  <img src={AI_AVATAR_PATH} alt="AI" className="w-full h-full object-cover" />
                 </div>
               )}
               <div 
-                className={`max-w-[80%] p-4 shadow-xl ${
+                className={`max-w-[75%] p-4 shadow-xl ${
                   msg.role === 'user' 
                   ? 'bg-gradient-to-br from-indigo-500 to-sky-500 text-white rounded-[1.5rem] rounded-br-[0.25rem]' 
                   : 'bg-white text-slate-800 rounded-[1.5rem] rounded-bl-[0.25rem] border border-slate-100 font-medium'
@@ -139,8 +142,8 @@ export default function GeminiChatbot({ isOpen, onClose }) {
 
           {isLoading && (
             <div className="flex justify-start items-center gap-3 animate-in fade-in slide-in-from-left-4 duration-300">
-              <div className="w-8 h-8 rounded-lg bg-sky-100 flex items-center justify-center text-lg animate-bounce">
-                🤖
+              <div className="w-12 h-12 rounded-xl bg-white p-1 shadow-lg border-2 border-sky-400/30 overflow-hidden flex-shrink-0">
+                <img src={AI_AVATAR_PATH} alt="Thinking" className="w-full h-full object-cover rounded-lg scale-110" />
               </div>
               <div className="bg-white px-6 py-4 rounded-[1.5rem] rounded-bl-[0.25rem] shadow-lg border border-slate-50 flex gap-2 items-center">
                 <span className="w-2.5 h-2.5 bg-sky-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
